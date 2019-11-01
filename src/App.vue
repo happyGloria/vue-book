@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
+    <span class="text">ABCDEFG</span>
     <router-view/>
   </div>
 </template>
@@ -28,5 +29,10 @@
       color: #42b983;
     }
   }
+}
+.text {
+  font-family: 'Days One';
+  font-size: 20px;
+  color: orange;
 }
 </style>
