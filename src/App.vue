@@ -11,8 +11,9 @@ export default {
     ...mapGetters(['test'])
   },
   mounted () {
-    this.$store.dispatch('setTest', 12)
-    console.log('test: ', this.$store.state.test)
+    this.$store.dispatch('setTest', 12).then(() => {
+      console.log('test: ', this.test)
+    })
   }
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: hsl(210, 29%, 24%);
 
     &.router-link-exact-active {
       color: #42b983;

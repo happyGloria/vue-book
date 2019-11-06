@@ -3,7 +3,7 @@ export default {
     test: 1
   },
   mutations: {
-    'SET_TEST' (state, val) {
+    SET_TEST (state, val) {
       state.test = val
     }
   },
