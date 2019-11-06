@@ -1,15 +1,15 @@
 export default {
   state: {
-    test: 1
+    filename: ''
   },
   mutations: {
-    SET_TEST (state, val) {
-      state.test = val
+    SET_FILENAME (state, filename) {
+      state.filename = filename
     }
   },
   actions: {
-    setTest ({ state, commit }, val) {
-      commit('SET_TEST', val)
+    setFilename ({ commit }, filename) {
+      commit('SET_FILENAME', filename)
     }
   }
 }
