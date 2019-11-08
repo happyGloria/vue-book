@@ -1,14 +1,17 @@
 <template>
   <div class="ebook">
+    <ebook-title />
     <ebook-reader />
   </div>
 </template>
 
 <script>
+import EbookTitle from '@/components/ebook/EbookTitle'
 import EbookReader from '@/components/ebook/EbookReader'
 export default {
   components: {
-    EbookReader
+    EbookReader,
+    EbookTitle
   },
   data () {
     return {
