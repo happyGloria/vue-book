@@ -3,30 +3,46 @@
     <div class="title-wrapper"
          v-show="menuVisible">
       <div class="left">
-        <i class="icon icon-back" @click="backFn" />
+        <i class="icon icon-back"
+           @click="backFn" />
       </div>
       <ul class="right">
-        <li class="icon-wrapper">
-          <i class="icon icon-shelf"></i>
-        </li>
-        <li class="icon-wrapper">
-          <i class="icon icon-cart"></i>
-        </li>
-        <li class="icon-wrapper">
-          <i class="icon icon-more"></i>
+        <li v-for="item in rightIcons"
+            :key="item.name"
+            class="icon-wrapper"
+            @click="iconClickFn(item.name)">
+          <i :class="['icon', `icon-${item.name}`]" />
         </li>
       </ul>
     </div>
   </transition>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { EbookMixin } from './mixin.js'
 export default {
-  computed: {
-    ...mapGetters(['menuVisible'])
+  mixins: [ EbookMixin ],
+  data () {
+    return {
+      rightIcons: [
+        { name: 'shelf' },
+        { name: 'cart' },
+        { name: 'more' }
+      ]
+    }
   },
   methods: {
     backFn () {
+      // TODO:
+    },
+    iconClickFn (name) {
+      switch (name) {
+        case 'shelf':
+          break
+        case 'cart':
+          break
+        case 'more':
+          break
+      }
     }
   }
 }
@@ -43,7 +59,7 @@ export default {
   width: 100%;
   height: px2rem(48);
   background: white;
-  box-shadow: 0 px2rem(8) px2rem(8) rgba(0, 0, 0, .15);
+  box-shadow: 0 px2rem(6) px2rem(6) rgba(0, 0, 0, .15);
   .left {
     flex: 0 0 px2rem(60);
     @include center;

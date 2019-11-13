@@ -5,27 +5,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { EbookMixin } from './mixin.js'
 import Epub from 'epubjs'
+import { mapActions } from 'vuex'
 global.Epub = Epub
 export default {
-  data () {
-    return {
-    }
-  },
-  computed: {
-    ...mapGetters(['filename'])
-  },
+  mixins: [ EbookMixin ],
   mounted () {
     const filename = this.$route.params.filename.split('|').join('/')
     this.$store.dispatch('setFilename', filename)
       .then(() => this.initEpub())
   },
   methods: {
+    ...mapActions(['setMenuVisible']),
     initEpub () {
       // 获取链接
-      const baseUrl = 'http://192.168.12.45:8081/epub/'
-      const url = `${baseUrl}${this.filename}.epub`
+      const url = `${this.$baseUrl}${this.filename}.epub`
       let innerWidth = (document.documentElement || document.body).clientWidth,
         innerHeight = (document.documentElement || document.body).clientHeight
       this.book = new Epub(url)
@@ -49,7 +44,7 @@ export default {
         } else if (timeDiff < 500 && offsetX < -40) {
           this.pagePrev()
         } else {
-          this.showTitleAndMenu()
+          this.toggleTitleAndMenu()
         }
         /* event.preventDefault()
         event.stopPropagation() */
@@ -58,17 +53,22 @@ export default {
     pagePrev () {
       if (this.rendition) {
         this.rendition.prev()
-        this.$store.dispatch('setMenuVisible', false)
+        this.hideTitleAndMenu()
       }
     },
     pageNext () {
       if (this.rendition) {
         this.rendition.next()
-        this.$store.dispatch('setMenuVisible', false)
+        this.hideTitleAndMenu()
       }
     },
-    showTitleAndMenu () {
-      this.$store.dispatch('setMenuVisible', true)
+    hideTitleAndMenu () {
+      this.setMenuVisible(false)
+      // this.$store.dispatch('setMenuVisible', false)
+    },
+    toggleTitleAndMenu () {
+      // this.$store.dispatch('setMenuVisible', )
+      this.setMenuVisible(!this.menuVisible)
     }
   }
 }
