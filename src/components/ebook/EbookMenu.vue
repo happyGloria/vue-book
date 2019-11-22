@@ -5,7 +5,7 @@
       <div v-for="item in icons"
            :key="item.name"
            class="icon-wrapper"
-           @click="menuclickFn(item.name)">
+           @click="menuClickFn(item.name)">
         <i :class="['icon', `icon-${item.name}`]" />
       </div>
     </div>

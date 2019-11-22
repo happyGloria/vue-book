@@ -1,23 +1,21 @@
 <template>
   <div class="ebook-reader">
-    <div id="read"></div>
+    <div id="read" />
   </div>
 </template>
 
 <script>
 import { EbookMixin } from './mixin.js'
 import Epub from 'epubjs'
-import { mapActions } from 'vuex'
 global.Epub = Epub
 export default {
-  mixins: [ EbookMixin ],
+  mixins: [EbookMixin],
   mounted () {
     const filename = this.$route.params.filename.split('|').join('/')
-    this.$store.dispatch('setFilename', filename)
+    this.setFilename(filename)
       .then(() => this.initEpub())
   },
   methods: {
-    ...mapActions(['setMenuVisible']),
     initEpub () {
       // 获取链接
       const url = `${this.$baseUrl}${this.filename}.epub`
@@ -36,9 +34,8 @@ export default {
         this.touchStartTime = event.timeStamp
       })
       this.rendition.on('touchend', event => {
-        const offsetX = event.changedTouches[0].clientX - this.touchStartX
-        const timeDiff = event.timeStamp - this.touchStartTime
-        console.log(offsetX, timeDiff)
+        const offsetX = event.changedTouches[0].clientX - this.touchStartX,
+          timeDiff = event.timeStamp - this.touchStartTime
         if (timeDiff < 500 && offsetX > 40) {
           this.pageNext()
         } else if (timeDiff < 500 && offsetX < -40) {
@@ -67,7 +64,7 @@ export default {
       // this.$store.dispatch('setMenuVisible', false)
     },
     toggleTitleAndMenu () {
-      // this.$store.dispatch('setMenuVisible', )
+      // this.$store.dispatch('setMenuVisible', !this.menuVisible)
       this.setMenuVisible(!this.menuVisible)
     }
   }
