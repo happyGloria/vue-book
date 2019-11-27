@@ -17,8 +17,7 @@ export const EbookMixin = {
     ...mapActions([
       'setFilename',
       'setMenuVisible',
-      'setSettingVisible',
-      'setFontFamilyVisible'
+      'setSettingVisible'
     ])
   }
 }

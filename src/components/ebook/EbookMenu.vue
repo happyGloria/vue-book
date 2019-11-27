@@ -1,20 +1,27 @@
 <template>
-  <transition name="slide-up">
-    <div class="menu-wrapper"
-         v-show="menuVisible">
-      <div v-for="item in icons"
-           :key="item.name"
-           class="icon-wrapper"
-           @click="menuClickFn(item.name)">
-        <i :class="['icon', `icon-${item.name}`]" />
+  <div class="ebook-menu">
+    <transition name="slide-up">
+      <div class="menu-wrapper"
+           v-show="menuVisible">
+        <div v-for="item in icons"
+             :key="item.name"
+             class="icon-wrapper"
+             @click="menuClickFn(item.name)">
+          <i :class="['icon', `icon-${item.name}`]" />
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+    <ebook-setting-font />
+  </div>
 </template>
 <script>
 import { EbookMixin } from './mixin.js'
+import EbookSettingFont from './EbookSettingFont'
 export default {
-  mixins: [ EbookMixin ],
+  mixins: [EbookMixin],
+  components: {
+    EbookSettingFont
+  },
   data () {
     return {
       icons: [
@@ -35,6 +42,7 @@ export default {
         case 'bright':
           break
         case 'A':
+          this.setSettingVisible(0)
           break
       }
     }
