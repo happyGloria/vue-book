@@ -53,7 +53,6 @@ export default {
   },
   watch: {
     settingVisible (v) {
-      debugger
       if (v === 0) {
         this.$nextTick(() => {
           this.genStyle()
