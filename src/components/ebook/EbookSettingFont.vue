@@ -9,14 +9,15 @@
                 :style="styleLeft">A</span>
         </div>
         <div class="select">
-          <div v-for="(item, index) in fontSizeList"
+          <div ref="item"
+               v-for="(item, index) in fontSizeList"
                :key="index"
                class="select-wrapper">
             <div class="line"></div>
             <div class="pointer-wrapper">
               <div v-show="defaultFontSize === item.fontSize"
                    class="point">
-                <div class="small-point"></div>
+                <div class="small-point" />
               </div>
             </div>
             <div class="line"></div>
@@ -66,7 +67,7 @@ export default {
         right = rect.width,
         leftText = rectText.width,
         rightText = rectText.width,
-        item = this.$refs.items[0].getBoundingClientRect().width
+        item = this.$refs.item[0].getBoundingClientRect().width
       this.styleLeft = {
         marginLeft: (left + item - leftText) / 2 + 'px',
         fontSize: this.fontSizeList[0].fontSize + 'px'
@@ -106,6 +107,7 @@ export default {
     .select {
       display: flex;
       flex: 1;
+      align-items: center;
       .select-wrapper {
         flex: 1;
         display: flex;
@@ -119,25 +121,25 @@ export default {
           flex: 1;
           height: 0;
         }
-      }
-      .point-wrapper {
-        position: relative;
-        width: 0;
-        flex: 0 0 0;
-        height: px2rem(7);
-        .point {
-          position: absolute;
-          top: px2rem(-8);
-          left: px2rem(-10);
-          width: px2rem(20);
-          height: px2rem(20);
-          border-radius: 50%;
-          box-shadow: 0 px2rem(4) px2rem(4) rgba(0, 0, 0, .15);
-          @include center;
-          .small-point {
-            width: px2rem(5);
-            height: px2rem(5);
+        .point-wrapper {
+          flex: 0 0 0;
+          position: relative;
+          width: 0;
+          height: px2rem(7);
+          .point {
+            position: absolute;
+            top: px2rem(-8);
+            left: px2rem(-10);
+            width: px2rem(20);
+            height: px2rem(20);
             border-radius: 50%;
+            box-shadow: 0 px2rem(4) px2rem(4) rgba(0, 0, 0, .15);
+            @include center;
+            .small-point {
+              width: px2rem(5);
+              height: px2rem(5);
+              border-radius: 50%;
+            }
           }
         }
       }

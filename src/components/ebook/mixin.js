@@ -21,7 +21,8 @@ export const EbookMixin = {
       'setMenuVisible',
       'setSettingVisible',
       'setDefaultFontFamily',
-      'setDefaultFontSize'
+      'setDefaultFontSize',
+      'setFontFamilyVisible'
     ])
   }
 }
