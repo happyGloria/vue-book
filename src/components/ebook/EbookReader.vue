@@ -11,7 +11,7 @@ global.Epub = Epub
 export default {
   mixins: [EbookMixin],
   mounted () {
-    const filename = this.$route.params.filename.split('|').join('/')
+    let filename = this.$route.params.filename.split('|').join('/')
     this.setFilename(filename)
       .then(() => this.initEpub())
   },

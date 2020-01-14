@@ -29,12 +29,12 @@
         </div>
       </div>
       <div class="setting-font-family"
-           @click="showFontFamilySetting">
+           @click.stop="showFontFamilySetting">
         <div class="setting-font-family-text-wrapper">
           <span class="setting-font-family-text">{{ defaultFontFamily }}</span>
         </div>
         <div class="setting-font-family-icon-wrapper">
-          <span class="icon icon-forward"></span>
+          <span class="icon icon-forward" />
         </div>
       </div>
     </div>
@@ -54,9 +54,7 @@ export default {
   watch: {
     settingVisible (v) {
       if (v === 0) {
-        this.$nextTick(() => {
-          this.genStyle()
-        })
+        this.$nextTick(() => this.genStyle())
       }
     }
   },
@@ -112,10 +110,35 @@ export default {
         flex: 1;
         display: flex;
         align-items: center;
+        &:first-child,  &:last-child{
+          .line {
+            border-top: none;
+          }
+        }
         .line {
           flex: 1;
           height: 0;
-          border-top: none;
+        }
+      }
+      .point-wrapper {
+        position: relative;
+        width: 0;
+        flex: 0 0 0;
+        height: px2rem(7);
+        .point {
+          position: absolute;
+          top: px2rem(-8);
+          left: px2rem(-10);
+          width: px2rem(20);
+          height: px2rem(20);
+          border-radius: 50%;
+          box-shadow: 0 px2rem(4) px2rem(4) rgba(0, 0, 0, .15);
+          @include center;
+          .small-point {
+            width: px2rem(5);
+            height: px2rem(5);
+            border-radius: 50%;
+          }
         }
       }
     }
