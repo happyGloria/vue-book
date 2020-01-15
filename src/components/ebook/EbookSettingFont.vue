@@ -3,30 +3,26 @@
     <div v-show="menuVisible && settingVisible === 0"
          class="setting-wrapper">
       <div class="setting-font-size">
-        <div ref="left"
-             class="preview">
-          <span ref="leftText"
-                :style="styleLeft">A</span>
+        <div class="preview">
+          <span :style="{fontSize: `${fontSizeList[0].fontSize}px`}">A</span>
         </div>
         <div class="select">
-          <div ref="item"
-               v-for="(item, index) in fontSizeList"
+          <div v-for="(item, index) in fontSizeList"
                :key="index"
-               class="select-wrapper">
-            <div class="line"></div>
+               class="select-wrapper"
+               @click="setFontSize(item.fontSize)">
+            <div class="line" />
             <div class="pointer-wrapper">
               <div v-show="defaultFontSize === item.fontSize"
                    class="point">
                 <div class="small-point" />
               </div>
             </div>
-            <div class="line"></div>
+            <div class="line" />
           </div>
         </div>
-        <div ref="right"
-             class="preview">
-          <span ref="rightText"
-                :style="styleRight">A</span>
+        <div class="preview">
+          <span :style="{fontSize: `${fontSizeList[fontSizeList.length - 1].fontSize}px`}">A</span>
         </div>
       </div>
       <div class="setting-font-family"
@@ -44,41 +40,23 @@
 
 <script>
 import { EbookMixin } from './mixin.js'
+import { FONT_SIZE_LIST } from './book.js'
+import { saveFontSize } from '@/utils/localStorage'
 export default {
   mixins: [EbookMixin],
   data () {
     return {
-      styleLeft: {},
-      styleRight: {}
-    }
-  },
-  watch: {
-    settingVisible (v) {
-      if (v === 0) {
-        this.$nextTick(() => this.genStyle())
-      }
+      fontSizeList: FONT_SIZE_LIST
     }
   },
   methods: {
-    genStyle () {
-      let rect = this.$refs.left.getBoundingClientRect(),
-        rectText = this.$refs.leftText.getBoundingClientRect()
-      const left = rect.width,
-        right = rect.width,
-        leftText = rectText.width,
-        rightText = rectText.width,
-        item = this.$refs.item[0].getBoundingClientRect().width
-      this.styleLeft = {
-        marginLeft: (left + item - leftText) / 2 + 'px',
-        fontSize: this.fontSizeList[0].fontSize + 'px'
-      }
-      this.styleRight = {
-        marginRight: (right + item - rightText) / 2 + 'px',
-        fontSize: this.fontSizeList[this.fontSizeList.length - 1].fontSize + 'px'
-      }
-    },
     showFontFamilySetting () {
       this.setFontFamilyVisible(true)
+    },
+    setFontSize (fontSize) {
+      this.setDefaultFontsize()
+      saveFontSize(this.fileName, fontSize)
+      this.currentBook.rendition.themes.fontSize(fontSize)
     }
   }
 }
@@ -107,25 +85,31 @@ export default {
     .select {
       display: flex;
       flex: 1;
-      align-items: center;
       .select-wrapper {
-        flex: 1;
         display: flex;
+        flex: 1;
         align-items: center;
-        &:first-child,  &:last-child{
-          .line {
+        &:first-child {
+          .line:first-child {
+            border-top: none;
+          }
+        }
+        &:last-child{
+          .line:last-child {
             border-top: none;
           }
         }
         .line {
           flex: 1;
           height: 0;
+          border-top: px2rem(1) solid #ccc;
         }
         .point-wrapper {
-          flex: 0 0 0;
           position: relative;
+          flex: 0 0 0;
           width: 0;
           height: px2rem(7);
+          border-left: px2rem(1) solid #ccc;
           .point {
             position: absolute;
             top: px2rem(-8);
@@ -133,11 +117,14 @@ export default {
             width: px2rem(20);
             height: px2rem(20);
             border-radius: 50%;
+            background: white;
+            border: px2rem(1) solid #ccc;
             box-shadow: 0 px2rem(4) px2rem(4) rgba(0, 0, 0, .15);
             @include center;
             .small-point {
               width: px2rem(5);
               height: px2rem(5);
+              background: black;
               border-radius: 50%;
             }
           }
