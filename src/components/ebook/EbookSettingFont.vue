@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-up">
-    <div v-show="menuVisible && settingVisible === 0"
+    <div v-show="menuVisible && settingVisible == 'A'"
          class="setting-wrapper">
       <div class="setting-font-size">
         <div class="preview">
@@ -12,7 +12,7 @@
                class="select-wrapper"
                @click="setFontSize(item.fontSize)">
             <div class="line" />
-            <div class="pointer-wrapper">
+            <div class="point-wrapper">
               <div v-show="defaultFontSize === item.fontSize"
                    class="point">
                 <div class="small-point" />
@@ -54,8 +54,8 @@ export default {
       this.setFontFamilyVisible(true)
     },
     setFontSize (fontSize) {
-      this.setDefaultFontsize()
-      saveFontSize(this.fileName, fontSize)
+      this.setDefaultFontSize(fontSize)
+      saveFontSize(this.filename, fontSize)
       this.currentBook.rendition.themes.fontSize(fontSize)
     }
   }

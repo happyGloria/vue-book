@@ -16,12 +16,16 @@ export default {
       .then(() => this.initEpub())
   },
   methods: {
+    initRendition () {
+
+    },
     initEpub () {
       // 获取链接
       const url = `${this.$baseUrl}${this.filename}.epub`
       let innerWidth = (document.documentElement || document.body).clientWidth,
         innerHeight = (document.documentElement || document.body).clientHeight
       this.book = new Epub(url)
+      this.setCurrentBook(this.book)
       this.rendition = this.book.renderTo('read', {
         width: innerWidth,
         height: innerHeight,

@@ -7,7 +7,8 @@ export const EbookMixin = {
       'menuVisible',
       'settingVisible',
       'defaultFontSize',
-      'defaultFontFamily'
+      'defaultFontFamily',
+      'currentBook'
     ])
   },
   methods: {
@@ -17,7 +18,8 @@ export const EbookMixin = {
       'setSettingVisible',
       'setDefaultFontFamily',
       'setDefaultFontSize',
-      'setFontFamilyVisible'
+      'setFontFamilyVisible',
+      'setCurrentBook'
     ])
   }
 }

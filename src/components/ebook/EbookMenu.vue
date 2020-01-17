@@ -11,6 +11,7 @@
         </div>
       </div>
     </transition>
+    <!-- 字体&字体大小 -->
     <ebook-setting-font />
   </div>
 </template>
@@ -34,17 +35,7 @@ export default {
   },
   methods: {
     menuClickFn (name) {
-      switch (name) {
-        case 'menu':
-          break
-        case 'progress':
-          break
-        case 'bright':
-          break
-        case 'A':
-          this.setSettingVisible(0)
-          break
-      }
+      this.setSettingVisible(name)
     }
   }
 }
